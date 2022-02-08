@@ -23,14 +23,14 @@ jobs:
           GITHUB_TOKEN: ${{secrets.pr-merge-token}}
 
       - name: Approve PRs for @blakeelearning dependencies with minor changes
-        if: ${{ startsWith(steps.dependabot-metadata.outputs.dependency-names, '@blakeelearning') && steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' }}
+        if: ${{ startsWith(steps.dependabot-metadata.outputs.dependency-names, '@blakeelearning') && steps.dependabot-metadata.outputs.dependency-type == 'direct:development' && steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' }}
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.pr-merge-token}}
 
       - name: Approve PRs for all dependencies with patch changes
-        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' }}
+        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' && steps.dependabot-metadata.outputs.dependency-type == 'direct:development' }}
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
