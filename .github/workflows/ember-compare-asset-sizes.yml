@@ -1,10 +1,12 @@
 name: Ember compare asset sizes
 
 on:
-  pull_request_target:
-    branches-ignore:
-      - 'master'
-      - 'release/**/**'
+  workflow_call:
+    secrets:
+      npm-token:
+        required: true
+      ssh-private-key:
+        required: true
 
 permissions:
   contents: read
@@ -15,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup npm token for private packages
-      run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} > ~/.npmrc
+      run: echo //registry.npmjs.org/:_authToken=${{ secrets.npm-token }} > ~/.npmrc
     - name: Setup SSH for Github Auth
       uses: webfactory/ssh-agent@v0.5.4
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.ssh-private-key }}
     - uses: actions/checkout@v2.3.4
       with:
         # when using pull_request_target, need to specify what sha to compare against (otherwise it does PR base)
