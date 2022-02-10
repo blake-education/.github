@@ -1,4 +1,4 @@
-name: Ember Dependabot auto-merge
+name: Ember Dependabot auto-merge (conservative)
 on:
   workflow_call:
     secrets:
