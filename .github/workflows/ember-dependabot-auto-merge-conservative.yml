@@ -1,0 +1,30 @@
+name: Ember Dependabot auto-merge
+on:
+  workflow_call:
+    secrets:
+      pr-merge-token:
+        required: true
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: '${{ secrets.pr-merge-token }}'
+
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.pr-merge-token}}
+
+      - name: Approve PRs for @blakeelearning dependencies with patch changes
+        if: ${{ startsWith(steps.dependabot-metadata.outputs.dependency-names, '@blakeelearning') && steps.dependabot-metadata.outputs.dependency-type == 'direct:development' && steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' }}
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.pr-merge-token}}
