@@ -1,3 +1,4 @@
+# Automerges dependabots for all minor changes of internal packages, and patch changes for 3rd party packages.
 name: Ember Dependabot auto-merge
 on:
   workflow_call:
