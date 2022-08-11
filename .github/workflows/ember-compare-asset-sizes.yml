@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Setup npm token for private packages
       run: echo //registry.npmjs.org/:_authToken=${{ secrets.npm-token }} > ~/.npmrc
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v3
       with:
         # when using pull_request_target, need to specify what sha to compare against (otherwise it does PR base)
         ref: ${{ github.event.pull_request.head.sha }}
