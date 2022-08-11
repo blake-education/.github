@@ -21,9 +21,7 @@ jobs:
         # when using pull_request_target, need to specify what sha to compare against (otherwise it does PR base)
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
-    # This is a fork of the standard ember-asset-size-action addon, so that it can show total bundle sizes
-    # Swap to "simplabs/ember-asset-size-action@v2" to go back, and delete the 'show-totals' input below.
-    - uses: techn1x/ember-asset-size-action@feat/show-totals-2
+    - uses: blake-education/ember-asset-size-action@master
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        show-total-size-diff: 'yes'
+        show-totals: 'yes'
