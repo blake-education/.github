@@ -23,7 +23,7 @@ jobs:
         fetch-depth: 0
     # This is a fork of the standard ember-asset-size-action addon, so that it can show total bundle sizes
     # Swap to "simplabs/ember-asset-size-action@v2" to go back, and delete the 'show-totals' input below.
-    - uses: timiyay/ember-asset-size-action@timiyay/show-totals
+    - uses: techn1x/ember-asset-size-action@feat/show-totals-2
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        show-totals: 'yes'
+        show-total-size-diff: 'yes'
