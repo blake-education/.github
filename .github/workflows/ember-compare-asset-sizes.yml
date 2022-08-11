@@ -21,7 +21,7 @@ jobs:
         # when using pull_request_target, need to specify what sha to compare against (otherwise it does PR base)
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
-    - uses: blake-education/ember-asset-size-action
+    - uses: blake-education/ember-asset-size-action@main
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         show-totals: 'yes'
