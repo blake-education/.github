@@ -10,6 +10,12 @@ permissions:
   contents: read
   pull-requests: write
 
+# Cancels in-progress runs of this action when new commits are added to the branch, running only the latest.
+# See: https://stackoverflow.com/a/67939898
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
